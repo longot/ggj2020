@@ -1,0 +1,43 @@
+{
+  "name": "repairgame",
+  "version": "1.0.0",
+  "description": "Repair game",
+  "author": {
+    "name": "Andrey Khudoley",
+    "email": "longot@gmail.com"
+  },
+  "dependencies": {
+    "phaser-ce": "^2.13.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/plugin-proposal-object-rest-spread": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "babel-eslint": "^9.0.0",
+    "babel-loader": "^8.0.0",
+    "base64-inline-loader": "^1.1.1",
+    "browser-sync": "^2.26.7",
+    "browser-sync-webpack-plugin": "^2.2.2",
+    "core-js": "^3.6.1",
+    "css-loader": "^1.0.1",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "expose-loader": "^0.7.5",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^0.23.1",
+    "webfontloader": "^1.6.28",
+    "webpack": "^3.12.0",
+    "webpack-dev-server": "^2.5.0"
+  },
+  "scripts": {
+    "start": "webpack",
+    "build": "webpack"
+  },
+  "license": "ISC",
+  "private": true
+}

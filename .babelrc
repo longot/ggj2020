@@ -1,0 +1,25 @@
+{
+  "presets": [
+    ["@babel/preset-env", {
+      "modules": "auto",
+      "forceAllTransforms": true,
+      "useBuiltIns": "entry",
+      "corejs": "3.6",
+      "spec": true,
+      "targets": {
+        "browsers": [
+          ">= 1%",
+          "not dead",
+          "not ie 11",
+          "not op_mini all",
+          "Android >= 4.4",
+          "Safari >= 9",
+          "iOS >= 9"
+        ]
+      }
+    }]
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-object-rest-spread"
+  ]
+}

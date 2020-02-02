@@ -1,0 +1,51 @@
+{
+  "parser": "babel-eslint",
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "rules": {
+    "import/no-unresolved": [0],
+    "prefer-const": "error",
+    "semi": ["error", "never"],
+    "object-curly-spacing": ["error", "never"],
+    "object-curly-newline": [
+      "error",
+      {
+        "ObjectExpression": { "multiline": true,  "minProperties": 3, "consistent": true },
+        "ObjectPattern": { "multiline": true },
+        "ImportDeclaration": "never",
+        "ExportDeclaration": { "multiline": true, "minProperties": 3 }
+      }
+    ],
+    "no-multi-spaces": [
+      "error",
+      {
+        "exceptions": {
+          "VariableDeclarator": true,
+          "ImportDeclaration": true
+        }
+      }],
+    "camelcase": [
+      "error",
+      {
+        "allow": ["__webpack_hash__"]
+      }
+    ],
+    "no-prototype-builtins": 0
+  },
+  "globals": {
+    "Phaser": false,
+    "require": false,
+    "__webpack_hash__": false
+  },
+  "settings": {
+    "import/core-modules": [ "phaser", "pixi", "p2" ]
+  }
+}
