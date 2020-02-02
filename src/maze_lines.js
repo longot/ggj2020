@@ -152,10 +152,10 @@ export default class Sorter {
       }
     }
 
-    const itemGroup = game.add.group()
-    this.itemGroup = itemGroup
-    itemGroup.name = 'Item Group'
-    mainContainer.add(itemGroup)
+    const mazeGroup = game.add.group()
+    this.mazeGroup = mazeGroup
+    mazeGroup.name = 'Maze Group'
+    mainContainer.add(mazeGroup)
 
 
     const items = []
@@ -178,26 +178,38 @@ export default class Sorter {
         item.events.onInputUp.add(this.tapToItem, this)
         // item.events.onInputDown.add(this.selectItem, this)
 
-        itemGroup.add(item)
+        mazeGroup.add(item)
         items.push(item)
       })
     })
 
-    // console.log(Phaser.Timer.SECOND * 3 / (config.complexity+1), config.complexity)
-    this.complexityTimer = this.game.time.events.repeat(Phaser.Timer.SECOND * 3 / (config.complexity+1), 1000, () => {
+    // console.log(Phaser.Timer.SECOND * 5 / (config.complexity+1), config.complexity)
+    this.complexityTimer = this.game.time.events.repeat(Phaser.Timer.SECOND * 5 / (config.complexity+1), 1000, () => {
       const rndItem = Phaser.ArrayUtils.getRandomItem(this.items)
       // console.log(rndItem.data)
       let newNum = 0
-      if (rndItem.data.itemNum >= 80 && rndItem.data.itemNum < 90 ) {newNum
+      if (rndItem.data.itemNum >= 80 && rndItem.data.itemNum < 90 ) {
         if (Phaser.Utils.chanceRoll(10)) {
           newNum = game.rnd.between(80, 83)
         }
-      }
-      if (rndItem.data.itemNum >= 90 && rndItem.data.itemNum < 99 ) {
+      } else if (rndItem.data.itemNum >= 90 && rndItem.data.itemNum < 99 ) {
         if (Phaser.Utils.chanceRoll(10)) {
           newNum = game.rnd.between(90, 93)
         }
+      } else if (
+        (config.complexity == 3 && Phaser.Utils.chanceRoll(40)) ||
+        (config.complexity == 4 && Phaser.Utils.chanceRoll(50)) ||
+        (config.complexity >= 5 && Phaser.Utils.chanceRoll(60))
+      ) {
+        if (rndItem.data.itemNum == 1 || rndItem.data.itemNum == 2) {
+          rndItem.data.itemNum = 10
+          rndItem.loadTexture(ITEM_TYPES[10].sprite)
+        } else if (rndItem.data.itemNum >= 10 && rndItem.data.itemNum < 19 ) {
+          rndItem.data.itemNum = 1
+          rndItem.loadTexture(ITEM_TYPES[1].sprite)
+        }
       }
+
       if (rndItem.data.itemNum >= 10 && rndItem.data.itemNum < 19 ) {
         newNum = game.rnd.between(10, 13)
       }
@@ -212,12 +224,13 @@ export default class Sorter {
 
         this.allowClick = false
         const itemRotate = this.game.add.tween(rndItem)
-            .to({angle: ITEM_TYPES[newNum].angle}, Phaser.Timer.SECOND * 0.25)
+            .to({angle: ITEM_TYPES[newNum].angle}, Phaser.Timer.SECOND * 0.15)
             .start()
         itemRotate.onComplete.addOnce(() => {
           this.allowClick = true
         })
       }
+      this.detectWin()
     })
     this.complexityTimer.timer.start()
 

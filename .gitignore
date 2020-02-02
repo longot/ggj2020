@@ -3,6 +3,7 @@
 ehthumbs.db
 Thumbs.db
 build/*
+publish/*
 node_modules/*
 *.swp
 

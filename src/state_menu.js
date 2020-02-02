@@ -14,7 +14,7 @@ export default class extends Phaser.State {
     this.game.scale.scaleSprite(bgLayer, this.game.width, this.game.height, false)
     bgLayer.alignIn(this.game.camera.view, Phaser.CENTER, 0, 0)
     
-    const textGameName = this.game.make.text(350, 50, 'Please repair your think', {
+    const textGameName = this.game.make.text(350, 50, 'Please repair your mind', {
       font           : 'Arial',
       fontSize       : 80,
       fill           : '#FFFFFF',
@@ -34,7 +34,7 @@ export default class extends Phaser.State {
     textStartGame.inputEnabled = true
     textStartGame.events.onInputDown.add( () => {
       console.log('Game Start')
-      this.game.state.start('game_sorter')
+      this.game.state.start('game')
     })
 
     const textGameStats = this.game.make.text(200, 300, 'Your stats', {

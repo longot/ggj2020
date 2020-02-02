@@ -1,4 +1,4 @@
-import Sorter from './sorter'
+import Maze from './maze_lines'
 
 const LEVEL_DEMO = [
   [81, 11, 10, 12, 13],
@@ -57,7 +57,6 @@ const LEVEL_5 = [
 ]
 
 const LEVELS = {
-  // 0: LEVEL_DEMO,
   0: LEVEL_0,
   1: LEVEL_1,
   2: LEVEL_2,
@@ -72,24 +71,30 @@ export default class extends Phaser.State {
     this.currentLevel = 0
   }
 
-  // init (...args) {
-  //   console.log(args)
-  //   if (args[0]) {
-  //     this.currentLevel = args[0]
-  //   }
-  // }
+  init (...args) {
+    console.log(args)
+    if (args[0]) {
+      this.currentLevel = args[0]
+    }
+  }
 
   create () {
     const bgLayer = this.game.add.group(this.stage, 'Background Layer')
     const gameLayer = this.game.add.group(this.stage, 'Game Layer')
     const uiLayer = this.game.add.group(this.stage, 'UI Layer')
-    
+
+    this.layers = {
+      bgLayer,
+      gameLayer,
+      uiLayer
+    }
+
     this.background = this.game.make.image(0, 0, 'bggamesort')
     bgLayer.add(this.background)
     this.game.scale.scaleSprite(bgLayer, this.game.width, this.game.height, false)
     bgLayer.alignIn(this.game.camera.view, Phaser.CENTER, 0, 0)
     
-    const textTitle = this.game.make.text(40, 25, 'Repair your think', {
+    const textTitle = this.game.make.text(40, 25, 'Repair your mind', {
       font           : 'Arial',
       fontSize       : 70,
       fill           : '#FFFFFF',
@@ -107,7 +112,7 @@ export default class extends Phaser.State {
       this.state.start('menu')
     })
 
-    this.sorterGame = new Sorter(this.game, {
+    this.sorterGame = new Maze(this.game, {
       level: LEVELS[this.currentLevel],
       complexity: this.currentLevel,
       cols: 5,
@@ -120,6 +125,21 @@ export default class extends Phaser.State {
     this.sorterGame.mainContainer.x = this.game.width * 0.5
 
     this.sorterGame.onWin.addOnce(() => {
+
+      this.sparkleEmitter = this.game.add.emitter(0, 0, 500)
+      this.sparkleEmitter.makeParticles(Phaser.Animation.generateFrameNames('sparkle_', 1, 3))
+      this.sparkleEmitter.minParticleSpeed.setTo(-100, -100)
+      this.sparkleEmitter.maxParticleSpeed.setTo(100, 100)
+      this.sparkleEmitter.setAlpha(0, 1, Phaser.Timer.SECOND * 1)
+      this.sparkleEmitter.gravity = 0
+      this.sparkleEmitter.start(false, Phaser.Timer.SECOND * 4, 200)
+  
+      this.layers.uiLayer.add(this.sparkleEmitter)
+
+      this.sparkleEmitter.x = this.sorterGame.mainContainer.centerX
+      this.sparkleEmitter.y = this.sorterGame.mainContainer.centerY
+  
+
       const textWin = this.game.make.text(40, 150, 'You make this!', {
         font           : 'Arial',
         fontSize       : 70,
@@ -134,7 +154,7 @@ export default class extends Phaser.State {
       buttonOk.scale.set(0.25)
       buttonOk.inputEnabled = true
       buttonOk.events.onInputDown.add(() => {
-        this.state.start('game_sorter', true, false, this.currentLevel+1)
+        this.state.start('game', true, false, this.currentLevel+1)
       })
       const buttonOkText = this.game.make.text(0, -4, 'Next level', {
         fill    : '#ffffff',
@@ -151,7 +171,7 @@ export default class extends Phaser.State {
       buttonReplay.scale.set(0.25)
       buttonReplay.inputEnabled = true
       buttonReplay.events.onInputDown.add(() => {
-        this.state.start('game_sorter', true, false, this.currentLevel)
+        this.state.start('game', true, false, this.currentLevel)
       })
       const buttonReplayText = this.game.make.text(0, -4, 'Replay level', {
         fill    : '#ffffff',

@@ -18,39 +18,51 @@ export default class extends Phaser.State {
       }, {
         type: 'image',
         key : 'close-button',
-        url : 'Assets/images/close-button.png'
+        url : require('Assets/images/close-button.png')
       }, {
         type: 'image',
         key : 'cell',
-        url : 'Assets/images/cell.png'
+        url : require('Assets/images/cell.png')
       }, {
         type: 'image',
         key : 'Line-1',
-        url : 'Assets/images/lines/1.png'
+        url : require('Assets/images/lines/1.png')
       }, {
         type: 'image',
         key : 'Line-2',
-        url : 'Assets/images/lines/2.png'
+        url : require('Assets/images/lines/2.png')
       }, {
         type: 'image',
         key : 'Line-3',
-        url : 'Assets/images/lines/3.png'
+        url : require('Assets/images/lines/3.png')
       }, {
         type: 'image',
         key : 'Line-start',
-        url : 'Assets/images/lines/start.png'
+        url : require('Assets/images/lines/start.png')
       }, {
         type: 'image',
         key : 'Line-finish',
-        url : 'Assets/images/lines/finish.png'
+        url : require('Assets/images/lines/finish.png')
       }, {
         type: 'image',
         key : 'button-1',
-        url : 'Assets/images/button-1.png'
+        url : require('Assets/images/button-1.png')
       }, {
         type: 'image',
         key : 'button-2',
-        url : 'Assets/images/button-2.png'
+        url : require('Assets/images/button-2.png')
+      }, {
+        type: 'image',
+        key : 'sparkle_1',
+        url : require('Assets/images/sparkle/sparkle_1.png')
+      }, {
+        type: 'image',
+        key : 'sparkle_2',
+        url : require('Assets/images/sparkle/sparkle_2.png')
+      }, {
+        type: 'image',
+        key : 'sparkle_3',
+        url : require('Assets/images/sparkle/sparkle_3.png')
       },
     ]
     this.logo = this.game.add.image(this.game.world.centerX, this.game.world.centerY, 'phaserlogo')
@@ -75,10 +87,9 @@ export default class extends Phaser.State {
   }
 
   create() {
-    // this.state.start('game_sorter')
-    const hidelogo = this.game.add.tween(this.logo).to({alpha: 0}, 250).start()
-    hidelogo.onComplete.addOnce( () => {
+    // const hidelogo = this.game.add.tween(this.logo).to({alpha: 0}, 250).start()
+    // hidelogo.onComplete.addOnce( () => {
       this.state.start('menu')
-    })
+    // })
   }
 }

@@ -31,12 +31,14 @@
     "html-webpack-plugin": "^3.2.0",
     "style-loader": "^0.23.1",
     "webfontloader": "^1.6.28",
-    "webpack": "^3.12.0",
-    "webpack-dev-server": "^2.5.0"
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack-merge": "^4.2.2"
   },
   "scripts": {
-    "start": "webpack",
-    "build": "webpack"
+    "start": "webpack --progress --config webpack.dev.js --watch",
+    "build": "webpack --progress --config webpack.prod.js"
   },
   "license": "ISC",
   "private": true

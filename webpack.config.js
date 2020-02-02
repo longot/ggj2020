@@ -2,7 +2,6 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 
 // Phaser webpack config
 const phaserModule = path.join(__dirname, '/node_modules/phaser-ce/')
@@ -20,21 +19,7 @@ module.exports = {
     filename: '[name].js',
     path: path.join(__dirname, 'build')
   },
-  devtool: 'source-map',
-  watch  : true,
-  // devServer: {
-  //   publicPath: path.join(__dirname, 'dist'),
-  //   // contentBase: path.join(__dirname, 'public'),
-  //   port: 3000
-  // },
   plugins: [
-    // new webpack.optimize.UglifyJsPlugin({
-    //   drop_console: true,
-    //   minimize: true,
-    //   output: {
-    //     comments: false
-    //   }
-    // }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './src/index.html',
@@ -53,13 +38,6 @@ module.exports = {
       hash: true
     }),
     new webpack.ExtendedAPIPlugin(),
-    new BrowserSyncPlugin({
-      host: process.env.IP || 'localhost',
-      port: process.env.PORT || 3000,
-      server: {
-        baseDir: ['./', './build']
-      }
-    }),
   ],
   module: {
     rules: [{
@@ -88,7 +66,8 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|.mp3)$/,
-        use: 'file-loader?publicPath=&name=[name].[ext]'
+        // use: 'file-loader?publicPath=&name=[name].[ext]'
+        use: 'base64-inline-loader?name=[name].[ext]'
       }
     ]
   },
